@@ -1,0 +1,22 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{% static 'dist/styles.css' %}" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+    <title>{% block title %}{% endblock title %} | Foodies</title>
+</head>
+<body>
+    <main class="flex flex-col-reverse h-screen sm:flex-row">
+        {% include "navigation/nav.html" %}
+        <section class="w-full p-4">
+            {% block content %}
+            {% endblock content %}
+        </section>
+    </main>
+</body>
+</html>
