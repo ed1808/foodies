@@ -11,5 +11,9 @@ class Category(models.Model):
         Company, on_delete=models.CASCADE, verbose_name="Empresa"
     )
 
+    class Meta:
+        verbose_name = "Categoría"
+        verbose_name_plural = "Categorías"
+
     def __str__(self):
         return self.name

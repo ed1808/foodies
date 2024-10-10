@@ -23,5 +23,9 @@ class Product(models.Model):
         Company, on_delete=models.CASCADE, verbose_name="Empresa"
     )
 
+    class Meta:
+        verbose_name = "Producto"
+        verbose_name_plural = "Productos"
+
     def __str__(self):
         return self.name

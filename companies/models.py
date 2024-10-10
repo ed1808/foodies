@@ -19,5 +19,9 @@ class Company(models.Model):
     city: models.CharField = models.CharField(max_length=100, verbose_name="Ciudad")
     country: models.CharField = models.CharField(max_length=100, verbose_name="País")
 
+    class Meta:
+        verbose_name = "Empresa"
+        verbose_name_plural = "Empresas"
+
     def __str__(self) -> str:
         return self.name

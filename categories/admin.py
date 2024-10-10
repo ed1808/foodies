@@ -1,3 +1,12 @@
 from django.contrib import admin
 
-# Register your models here.
+from .models import Category
+
+
+class CategoryAdmin(admin.ModelAdmin):
+    model = Category
+    list_display = ("name", "company")
+    search_fields = ("name", "company")
+
+
+admin.site.register(Category, CategoryAdmin)
