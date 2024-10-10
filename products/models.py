@@ -1,5 +1,6 @@
 from django.db import models
 
+from categories.models import Category
 from companies.models import Company
 
 
@@ -15,7 +16,9 @@ class Product(models.Model):
         upload_to="static/images/", verbose_name="Imagen"
     )
     stock: models.IntegerField = models.IntegerField(default=0, verbose_name="Stock")
-    # category: models.ForeignKey = models.ForeignKey(Category, on_delete=models.PROTECT, verbose_name="Categoría")
+    category: models.ForeignKey = models.ForeignKey(
+        Category, on_delete=models.PROTECT, verbose_name="Categoría"
+    )
     company: models.ForeignKey = models.ForeignKey(
         Company, on_delete=models.CASCADE, verbose_name="Empresa"
     )
