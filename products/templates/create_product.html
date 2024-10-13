@@ -1,0 +1,61 @@
+{% extends "base.html" %} 
+
+{% block title %}Productos{% endblock title %} 
+
+{% block content %}
+<div class="flex items-center justify-between border-b border-b-gray-200 px-4 pb-4 mb-4">
+	<a href="{% url 'products' %}" class="flex gap-3 items-center hover:text-blue-500 transition-colors ease-linear">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" color="currentColor" fill="none">
+            <path d="M15 6C15 6 9.00001 10.4189 9 12C8.99999 13.5812 15 18 15 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+        <span>Volver a productos</span>
+    </a>
+	<h1 class="text-2xl font-bold">Agregar nuevo producto</h1>
+</div>
+<div class="px-4">
+	<form action="{% url "add_product" %}" method="post" enctype="multipart/form-data"> 
+        {% csrf_token %}
+		<div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
+			<div class="sm:col-span-2">
+				<label for="{{ form.name.id_for_label }}" class="block mb-2 text-sm font-medium text-gray-900">
+                    Nombre del producto
+                </label>
+				{{ form.name }}
+			</div>
+			<div class="w-full">
+				<label for="{{ form.stock.id_for_label }}" class="block mb-2 text-sm font-medium text-gray-900">
+                    Stock
+                </label>
+				{{ form.stock }}
+			</div>
+			<div class="w-full">
+				<label for="{{ form.price.id_for_label }}" class="block mb-2 text-sm font-medium text-gray-900" >
+                    Precio
+                </label>
+				{{ form.price }}
+			</div>
+			<div>
+				<label for="{{ form.category.id_for_label }}" class="block mb-2 text-sm font-medium text-gray-900">
+                    Categoría
+                </label>
+				{{ form.category }}
+			</div>
+			<div>
+				<label for="{{ form.picture.id_for_label }}" class="block mb-2 text-sm font-medium text-gray-900 ">
+                    Imagen
+                </label>
+				{{ form.picture }}
+			</div>
+			<div class="sm:col-span-2">
+				<label for="{{ form.description.id_for_label }}" class="block mb-2 text-sm font-medium text-gray-900">
+                    Descripción
+                </label>
+				{{ form.description }}
+			</div>
+		</div>
+		<button type="submit" class="inline-flex items-center px-5 py-3 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-orange-500 rounded focus:ring-4 focus:ring-orange-200 hover:bg-orange-600 transition-colors ease-linear">
+			Agregar producto
+		</button>
+	</form>
+</div>
+{% endblock content %}

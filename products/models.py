@@ -12,9 +12,7 @@ class Product(models.Model):
     price: models.DecimalField = models.DecimalField(
         max_digits=10, decimal_places=2, verbose_name="Precio"
     )
-    picture: models.ImageField = models.ImageField(
-        upload_to="static/images/", verbose_name="Imagen"
-    )
+    picture: models.ImageField = models.ImageField(verbose_name="Imagen")
     stock: models.IntegerField = models.IntegerField(default=0, verbose_name="Stock")
     category: models.ForeignKey = models.ForeignKey(
         Category, on_delete=models.PROTECT, verbose_name="Categoría"
