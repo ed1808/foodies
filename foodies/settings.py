@@ -1,14 +1,15 @@
 from pathlib import Path
-import os
+import os, sys
 
 from django.core.management.utils import get_random_secret_key
-
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = get_random_secret_key()
 
 DEBUG = "PRODUCTION" not in os.environ
+TESTING = "test" in sys.argv
+
 
 ALLOWED_HOSTS = []
 
@@ -22,9 +23,12 @@ BASE_APPS = [
     "django.contrib.staticfiles",
 ]
 
-THIRD_PARTY_APPS = [
-    "debug_toolbar",
-]
+THIRD_PARTY_APPS = []
+
+if not TESTING:
+    THIRD_PARTY_APPS = [
+        "debug_toolbar",
+    ]
 
 USER_APPS = [
     "categories",
@@ -35,16 +39,27 @@ USER_APPS = [
 
 INSTALLED_APPS = BASE_APPS + THIRD_PARTY_APPS + USER_APPS
 
-MIDDLEWARE = [
-    "django.middleware.security.SecurityMiddleware",
-    "django.contrib.sessions.middleware.SessionMiddleware",
-    "django.middleware.common.CommonMiddleware",
-    "django.middleware.csrf.CsrfViewMiddleware",
-    "django.contrib.auth.middleware.AuthenticationMiddleware",
-    "debug_toolbar.middleware.DebugToolbarMiddleware",
-    "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "django.contrib.messages.middleware.MessageMiddleware",
-]
+if not TESTING:
+    MIDDLEWARE = [
+        "django.middleware.security.SecurityMiddleware",
+        "django.contrib.sessions.middleware.SessionMiddleware",
+        "django.middleware.common.CommonMiddleware",
+        "django.middleware.csrf.CsrfViewMiddleware",
+        "django.contrib.auth.middleware.AuthenticationMiddleware",
+        "debug_toolbar.middleware.DebugToolbarMiddleware",
+        "django.middleware.clickjacking.XFrameOptionsMiddleware",
+        "django.contrib.messages.middleware.MessageMiddleware",
+    ]
+else:
+    MIDDLEWARE = [
+        "django.middleware.security.SecurityMiddleware",
+        "django.contrib.sessions.middleware.SessionMiddleware",
+        "django.middleware.common.CommonMiddleware",
+        "django.middleware.csrf.CsrfViewMiddleware",
+        "django.contrib.auth.middleware.AuthenticationMiddleware",
+        "django.middleware.clickjacking.XFrameOptionsMiddleware",
+        "django.contrib.messages.middleware.MessageMiddleware",
+    ]
 
 ROOT_URLCONF = "foodies.urls"
 

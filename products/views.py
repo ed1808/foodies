@@ -64,7 +64,6 @@ class UpdateProductView(UpdateView):
         return Product.objects.get(id=self.kwargs["id"])
 
     def get_success_url(self) -> str:
-        print(self.object)
         return reverse_lazy("detail_product", kwargs={"id": self.object.id})
 
 
