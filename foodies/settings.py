@@ -33,6 +33,7 @@ if not TESTING:
 USER_APPS = [
     "categories",
     "companies",
+    "customers",
     "document_types",
     "products",
 ]
