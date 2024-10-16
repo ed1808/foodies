@@ -35,6 +35,7 @@ USER_APPS = [
     "companies",
     "customers",
     "document_types",
+    "employees",
     "products",
 ]
 
@@ -122,18 +123,20 @@ MEDIA_ROOT = BASE_DIR / "static/images/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-INTERNAL_IP = ["127.0.0.1"]
-
-
-def show_toolbar(request):
-    return True
-
-
-DEBUG_TOOLBAR_CONFIG = {
-    "SHOW_TOOLBAR_CALLBACK": show_toolbar,
-}
+INTERNAL_IP = [
+    "127.0.0.1",
+    "localhost:8000",
+]
 
 if DEBUG:
+
+    def show_toolbar(request):
+        return True
+
+    DEBUG_TOOLBAR_CONFIG = {
+        "SHOW_TOOLBAR_CALLBACK": show_toolbar,
+    }
+
     import mimetypes
 
     mimetypes.add_type("application/javascript", ".js", True)
