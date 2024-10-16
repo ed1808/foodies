@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}Clientes{% endblock title %}
+
+{% block content %}
+<div class="flex items-center justify-between border-b border-b-gray-200 px-4 pb-4 mb-4">
+    <h1 class="text-2xl font-bold">Eliminar a {{ customer.name }}</h1>
+</div>
+<div class="grid px-4 place-content-center h-[calc(100%-65px)]">
+    <form class="max-w-sm" action="{% url "delete_customer" customer.id %}" method="post"> 
+        {% csrf_token %}
+        <div class="mb-5 flex items-center justify-center">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="60" height="60" color="#dc2626" fill="none">
+                <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5" />
+                <path d="M11.992 15H12.001" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M12 12L12 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+        </div>
+        <p class="font-bold text-xl mb-5 text-center">Esta acción no se puede deshacer.</p>
+        <div class="flex gap-4 items-center justify-center">
+            <a href="{% url 'customers' %}" class="px-5 py-3 rounded font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:ring-4 focus:outline-none focus:ring-blue-300 transition-colors ease-linear" autofocus>Cancelar</a>
+            <button type="submit" class="px-5 py-3 rounded font-semibold border-2 border-red-600 text-red-600 hover:bg-red-600 hover:text-white focus:ring-4 focus:outline-none focus:ring-red-300 transition-colors ease-linear">Eliminar</button>
+        </div>
+    </form>
+</div>
+{% endblock content %}

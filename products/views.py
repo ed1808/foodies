@@ -18,6 +18,9 @@ class ProductsListView(ListView):
     template_name = "products.html"
     context_object_name = "products"
 
+    def get_queryset(self) -> QuerySet[Any]:
+        return Product.objects.filter(company__id=1)
+
 
 class ProductDetailView(DetailView):
     model = Product

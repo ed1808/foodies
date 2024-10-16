@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block title %}Clientes{% endblock title %}
+
+{% block content %}
+<div class="flex items-center justify-between border-b border-b-gray-200 px-4 pb-4 mb-4">
+    <h1 class="text-2xl font-bold">Clientes</h1>
+    <a href="{% url "add_customer" %}" class="px-3 py-2 flex items-center gap-3 text-orange-500 border border-orange-500 hover:bg-orange-500 hover:text-white focus:ring-4 focus:outline-none focus:ring-orange-300 rounded transition-colors ease-linear">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" color="currentColor" fill="none">
+            <path d="M12.5 22H6.59087C5.04549 22 3.81631 21.248 2.71266 20.1966C0.453365 18.0441 4.1628 16.324 5.57757 15.4816C7.67837 14.2307 10.1368 13.7719 12.5 14.1052C13.3575 14.2261 14.1926 14.4514 15 14.7809" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M16.5 6.5C16.5 8.98528 14.4853 11 12 11C9.51472 11 7.5 8.98528 7.5 6.5C7.5 4.01472 9.51472 2 12 2C14.4853 2 16.5 4.01472 16.5 6.5Z" stroke="currentColor" stroke-width="1.5" />
+            <path d="M18.5 22L18.5 15M15 18.5H22" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+        </svg>
+        <span>Nuevo cliente</span>
+    </a>
+</div>
+<div class="px-4 h-[calc(100%-75px)]">
+    <div class="overflow-y-auto h-full">
+        <table class="w-full border-spacing-0 ">
+            <thead>
+                <tr>
+                    <th class="sticky top-0 z-10 h-[50px] bg-white border-b border-b-gray-200 font-semibold">
+                        Nombre
+                    </th>
+                    <th class="sticky top-0 z-10 h-[50px] bg-white border-b border-b-gray-200 font-semibold text-left">
+                        Teléfono
+                    </th>
+                    <th class="sticky top-0 z-10 h-[50px] bg-white border-b border-b-gray-200 font-semibold text-left">
+                        Dirección
+                    </th>
+                    <th class="sticky top-0 z-10 h-[50px] bg-white border-b border-b-gray-200 font-semibold text-left">
+                        Barrio
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for customer in customers %}
+                <tr onclick="window.location.href='{% url "detail_customer" customer.id %}';" class="cursor-pointer hover:bg-gray-200 transition-colors ease-linear odd:bg-gray-50">
+                    <td class="pl-2 py-3 border-b border-b-gray-200">
+                        <p>{{ customer.name }}</p>
+                    </td>
+                    <td class="py-3 border-b border-b-gray-200">
+                        <p>{{ customer.phone_number }}</p>
+                    </td>
+                    <td class="py-3 border-b border-b-gray-200">
+                        <p>{{ customer.address }}</p>
+                    </td>
+                    <td class="py-3 border-b border-b-gray-200">
+                        <p>{{ customer.neighborhood }}</p>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="4">
+                        <p class="text-center">No hay clientes disponibles</p>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock content %}

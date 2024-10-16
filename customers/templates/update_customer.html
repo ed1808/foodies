@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}Clientes{% endblock title %}
+
+{% block content %}
+<div class="flex items-center justify-between border-b border-b-gray-200 px-4 pb-4 mb-4">
+    <h1 class="text-2xl font-bold">Editando a: {{ customer.name }}</h1>
+</div>
+<div class="px-4">
+	<form action="{% url "update_customer" customer.id %}" method="post"> 
+        {% csrf_token %}
+		<div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
+			<div class="w-full">
+                <label for="{{ form.name.id_for_label }}" class="block mb-2 text-sm font-medium text-gray-900">
+                    Nombre del cliente
+                </label>
+				{{ form.name }}
+			</div>
+			<div class="w-full">
+                <label for="{{ form.phone_number.id_for_label }}" class="block mb-2 text-sm font-medium text-gray-900">
+                    Teléfono
+                </label>
+				{{ form.phone_number }}
+			</div>
+			<div>
+                <label for="{{ form.address.id_for_label }}" class="block mb-2 text-sm font-medium text-gray-900" >
+                    Dirección
+                </label>
+				{{ form.address }}
+			</div>
+			<div>
+                <label for="{{ form.neighborhood.id_for_label }}" class="block mb-2 text-sm font-medium text-gray-900">
+                    Barrio
+                </label>
+				{{ form.neighborhood }}
+			</div>
+		</div>
+		<button type="submit" class="inline-flex items-center px-5 py-3 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-orange-500 rounded focus:ring-4 focus:ring-orange-200 hover:bg-orange-600 transition-colors ease-linear">
+			Modificar cliente
+		</button>
+	</form>
+</div>
+{% endblock content %}
