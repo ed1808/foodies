@@ -18,7 +18,7 @@
               stroke-linejoin="round" />
           </svg>
           <span
-            class="invisible rounded sm:absolute sm:z-10 group-hover:visible group-hover:translate-y-2/3 sm:group-hover:translate-y-0 sm:group-hover:translate-x-2/3 sm:group-hover:bg-white sm:group-hover:px-3 sm:py-1 sm:group-hover:shadow-md transition-all ease-linear quicksand-700">
+            class="invisible rounded sm:absolute sm:z-20 group-hover:visible group-hover:translate-y-2/3 sm:group-hover:translate-y-0 sm:group-hover:translate-x-2/3 sm:group-hover:bg-white sm:group-hover:px-3 sm:py-1 sm:group-hover:shadow-md transition-all ease-linear quicksand-700">
             Inicio
           </span>
         </a>
@@ -53,7 +53,7 @@
               stroke-linejoin="round" />
           </svg>
           <span
-            class="invisible rounded sm:absolute sm:z-10 group-hover:visible group-hover:translate-y-2/3 sm:group-hover:translate-y-0 sm:group-hover:translate-x-[50px] sm:group-hover:bg-white sm:group-hover:px-3 sm:py-1 sm:group-hover:shadow-md transition-all ease-linear quicksand-700">
+            class="invisible rounded sm:absolute sm:z-20 group-hover:visible group-hover:translate-y-2/3 sm:group-hover:translate-y-0 sm:group-hover:translate-x-[50px] sm:group-hover:bg-white sm:group-hover:px-3 sm:py-1 sm:group-hover:shadow-md transition-all ease-linear quicksand-700">
             Clientes
           </span>
         </a>
@@ -70,7 +70,7 @@
             <path d="M16 8C17.3333 8.63768 20 11.1739 20 15M15.9899 5H16.5366C17.5214 5 18.4246 5.57927 18.8809 6.5034C19.1964 7.14264 18.8809 8 17.9849 8H15.9899M15.9899 5V8M15.9899 5H12.9444M15.9899 8C15.9899 9.91304 15.7776 16 12 16H17.6665" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
           </svg>
           <span
-            class="invisible rounded sm:absolute sm:z-10 group-hover:visible group-hover:translate-y-2/3 sm:group-hover:translate-y-0 sm:group-hover:translate-x-[50px] sm:group-hover:bg-white sm:group-hover:px-3 sm:py-1 sm:group-hover:shadow-md transition-all ease-linear quicksand-700">
+            class="invisible rounded sm:absolute sm:z-20 group-hover:visible group-hover:translate-y-2/3 sm:group-hover:translate-y-0 sm:group-hover:translate-x-[50px] sm:group-hover:bg-white sm:group-hover:px-3 sm:py-1 sm:group-hover:shadow-md transition-all ease-linear quicksand-700">
             Pedidos
           </span>
         </a>
@@ -96,17 +96,17 @@
               stroke-linecap="round" />
           </svg>
           <span
-            class="invisible rounded sm:absolute sm:z-10 group-hover:visible group-hover:translate-y-2/3 sm:group-hover:translate-y-0 sm:group-hover:translate-x-[50px] sm:group-hover:bg-white sm:group-hover:px-3 sm:py-1 sm:group-hover:shadow-md transition-all ease-linear quicksand-700">
+            class="invisible rounded sm:absolute sm:z-20 group-hover:visible group-hover:translate-y-2/3 sm:group-hover:translate-y-0 sm:group-hover:translate-x-[50px] sm:group-hover:bg-white sm:group-hover:px-3 sm:py-1 sm:group-hover:shadow-md transition-all ease-linear quicksand-700">
             Productos
           </span>
         </a>
       </li>
     </ul>
-    <ul class="flex items-center justify-evenly sm:flex-col">
-      <li
-        class="group relative sm:w-full flex items-center justify-center py-7 px-3 border-t-2 border-transparent sm:border-t-0 hover:text-orange-600 hover:border-t-orange-600 cursor-pointer transition-colors ease-linear">
+    <div class="flex items-center justify-evenly sm:flex-col">
+      {% if perms.employees.view_employee or user.is_superuser %}
+      <div class="group relative sm:w-full flex items-center justify-center py-7 px-3 border-t-2 border-transparent sm:border-t-0 hover:text-orange-600 hover:border-t-orange-600 cursor-pointer transition-colors ease-linear">
         <a class="relative flex items-center gap-2 sm:inline-block sm:w-6 sm:h-6"
-          href="">
+          href="{% url 'employees' %}">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30"
             height="30" color="currentColor" fill="none"
             class="absolute left-1/2 -translate-x-1/2 group-hover:-translate-y-3/4 sm:group-hover:translate-y-0 transition-transform">
@@ -125,32 +125,34 @@
               stroke="currentColor" stroke-width="1.5" />
           </svg>
           <span
-            class="invisible rounded sm:absolute sm:z-10 group-hover:visible group-hover:translate-y-2/3 sm:group-hover:translate-y-0 sm:group-hover:translate-x-[50px] sm:group-hover:bg-white sm:group-hover:px-3 sm:py-1 sm:group-hover:shadow-md transition-all ease-linear quicksand-700">
+            class="invisible rounded sm:absolute sm:z-20 group-hover:visible group-hover:translate-y-2/3 sm:group-hover:translate-y-0 sm:group-hover:translate-x-[50px] sm:group-hover:bg-white sm:group-hover:px-3 sm:py-1 sm:group-hover:shadow-md transition-all ease-linear quicksand-700">
             Empleados
           </span>
         </a>
-      </li>
-      <li
-        class="group relative sm:w-full flex items-center justify-center py-7 px-3 border-t-2 border-transparent sm:border-t-0 hover:text-orange-600 hover:border-t-orange-600 cursor-pointer transition-colors ease-linear">
-        <a class="relative flex items-center gap-2 sm:inline-block sm:w-6 sm:h-6"
-          href="">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30"
-            height="30" color="currentColor" fill="none"
-            class="absolute left-1/2 -translate-x-1/2 group-hover:-translate-y-3/4 sm:group-hover:translate-y-0 transition-transform">
-            <path
-              d="M11 3L10.3374 3.23384C7.75867 4.144 6.46928 4.59908 5.73464 5.63742C5 6.67576 5 8.0431 5 10.7778V13.2222C5 15.9569 5 17.3242 5.73464 18.3626C6.46928 19.4009 7.75867 19.856 10.3374 20.7662L11 21"
-              stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
-            <path
-              d="M21 12L11 12M21 12C21 11.2998 19.0057 9.99153 18.5 9.5M21 12C21 12.7002 19.0057 14.0085 18.5 14.5"
-              stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-              stroke-linejoin="round" />
-          </svg>
-          <span
-            class="invisible rounded sm:text-nowrap sm:absolute sm:z-10 group-hover:visible group-hover:translate-y-2/3 sm:group-hover:translate-y-0 sm:group-hover:translate-x-[50px] sm:group-hover:bg-white sm:group-hover:px-3 sm:py-1 sm:group-hover:shadow-md transition-all ease-linear quicksand-700">
-            Cerrar sesión
-          </span>
-        </a>
-      </li>
-    </ul>
+      </div>
+      {% endif %}
+      <div class="group relative sm:w-full flex items-center justify-center py-7 px-3 border-t-2 border-transparent sm:border-t-0 hover:text-orange-600 hover:border-t-orange-600 cursor-pointer transition-colors ease-linear">
+        <form action="{% url 'logout' %}" method="post">
+          {% csrf_token %}
+          <button type="submit" class="relative flex items-center gap-2 sm:inline-block sm:w-6 sm:h-6">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30"
+              height="30" color="currentColor" fill="none"
+              class="absolute left-1/2 -translate-x-1/2 group-hover:-translate-y-3/4 sm:group-hover:translate-y-0 transition-transform">
+              <path
+                d="M11 3L10.3374 3.23384C7.75867 4.144 6.46928 4.59908 5.73464 5.63742C5 6.67576 5 8.0431 5 10.7778V13.2222C5 15.9569 5 17.3242 5.73464 18.3626C6.46928 19.4009 7.75867 19.856 10.3374 20.7662L11 21"
+                stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+              <path
+                d="M21 12L11 12M21 12C21 11.2998 19.0057 9.99153 18.5 9.5M21 12C21 12.7002 19.0057 14.0085 18.5 14.5"
+                stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                stroke-linejoin="round" />
+            </svg>
+            <span
+              class="invisible rounded sm:text-nowrap sm:absolute sm:z-20 group-hover:visible group-hover:translate-y-2/3 sm:group-hover:translate-y-0 sm:group-hover:translate-x-[50px] sm:group-hover:bg-white sm:group-hover:px-3 sm:py-1 sm:group-hover:shadow-md transition-all ease-linear quicksand-700">
+              Cerrar sesión
+            </span>
+          </button>
+        </form>
+      </div>
+    </div>
   </nav>
 </aside>

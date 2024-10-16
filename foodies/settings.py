@@ -128,6 +128,10 @@ INTERNAL_IP = [
     "localhost:8000",
 ]
 
+LOGIN_REDIRECT_URL = "customers"
+LOGOUT_REDIRECT_URL = "login"
+LOGIN_URL = "login"
+
 if DEBUG:
 
     def show_toolbar(request):

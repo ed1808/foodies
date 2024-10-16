@@ -1,4 +1,5 @@
 from typing import Any
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models.base import Model as Model
 from django.db.models.query import QuerySet
 from django.urls import reverse_lazy
@@ -11,7 +12,7 @@ from .models import Customer
 from companies.models import Company
 
 
-class CustomerCreateView(CreateView):
+class CustomerCreateView(LoginRequiredMixin, CreateView):
     model = Customer
     template_name = "create_customer.html"
     success_url = reverse_lazy("customers")
@@ -26,7 +27,7 @@ class CustomerCreateView(CreateView):
         return super().form_valid(form)
 
 
-class CustomersListView(ListView):
+class CustomersListView(LoginRequiredMixin, ListView):
     model = Customer
     template_name = "customers.html"
     context_object_name = "customers"
@@ -35,7 +36,7 @@ class CustomersListView(ListView):
         return Customer.objects.filter(companies__id=1)
 
 
-class CustomerDetailView(DetailView):
+class CustomerDetailView(LoginRequiredMixin, DetailView):
     model = Customer
     template_name = "detail_customer.html"
     context_object_name = "customer"
@@ -48,7 +49,7 @@ class CustomerDetailView(DetailView):
         )
 
 
-class CustomerDeleteView(DeleteView):
+class CustomerDeleteView(LoginRequiredMixin, DeleteView):
     model = Customer
     template_name = "delete_customer.html"
     success_url = reverse_lazy("customers")
@@ -62,7 +63,7 @@ class CustomerDeleteView(DeleteView):
         )
 
 
-class CustomerUpdateView(UpdateView):
+class CustomerUpdateView(LoginRequiredMixin, UpdateView):
     model = Customer
     form_class = CustomerForm
     template_name = "update_customer.html"

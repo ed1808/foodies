@@ -13,7 +13,9 @@
 </head>
 <body>
     <main class="flex flex-col-reverse h-screen sm:flex-row">
+        {% if user.is_authenticated %}
         {% include "navigation/nav.html" %}
+        {% endif %}
         <section class="w-full p-4 text-[#212529]">
             {% block content %}
             {% endblock content %}

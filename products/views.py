@@ -1,4 +1,5 @@
 from typing import Any
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models.base import Model as Model
 from django.db.models.query import QuerySet
 from django.urls import reverse_lazy
@@ -10,10 +11,8 @@ from django.views.generic.edit import UpdateView
 from .forms import ProductForm
 from .models import Product
 
-from companies.models import Company
 
-
-class ProductsListView(ListView):
+class ProductsListView(LoginRequiredMixin, ListView):
     model = Product
     template_name = "products.html"
     context_object_name = "products"
@@ -22,7 +21,7 @@ class ProductsListView(ListView):
         return Product.objects.filter(company__id=1)
 
 
-class ProductDetailView(DetailView):
+class ProductDetailView(LoginRequiredMixin, DetailView):
     model = Product
     template_name = "detail_product.html"
     context_object_name = "product"
@@ -43,21 +42,19 @@ class ProductDetailView(DetailView):
         )
 
 
-class CreateProductView(CreateView):
+class CreateProductView(LoginRequiredMixin, CreateView):
     model = Product
     template_name = "create_product.html"
     success_url = reverse_lazy("products")
     form_class = ProductForm
 
     def form_valid(self, form):
-        # form.instance.company = self.request.user.company
-        company = Company.objects.get(id=1)
-        form.instance.company = company
+        form.instance.company = self.request.user.company
         form.save()
         return super().form_valid(form)
 
 
-class UpdateProductView(UpdateView):
+class UpdateProductView(LoginRequiredMixin, UpdateView):
     model = Product
     form_class = ProductForm
     template_name = "update_product.html"
@@ -70,7 +67,7 @@ class UpdateProductView(UpdateView):
         return reverse_lazy("detail_product", kwargs={"id": self.object.id})
 
 
-class DeleteProductView(DeleteView):
+class DeleteProductView(LoginRequiredMixin, DeleteView):
     model = Product
     template_name = "delete_product.html"
     success_url = reverse_lazy("products")

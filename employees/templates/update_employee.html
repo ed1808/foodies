@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block title %}Empleados{% endblock title %}
+
+{% block content %}
+<div class="flex items-center justify-between border-b border-b-gray-200 px-4 pb-4 mb-4">
+    <h1 class="text-2xl font-bold">Editando a: {{ employee.first_name }} {{ employee.last_name }}</h1>
+</div>
+<div class="px-4">
+	<form action="{% url 'update_employee' employee.id %}" method="post"> 
+        {% csrf_token %}
+		<div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
+			<div class="w-full">
+                <label for="{{ form.first_name.id_for_label }}" class="block mb-2 text-sm font-medium text-gray-900">
+                    Nombre
+                </label>
+				{{ form.first_name }}
+			</div>
+			<div class="w-full">
+                <label for="{{ form.last_name.id_for_label }}" class="block mb-2 text-sm font-medium text-gray-900">
+                    Apellido
+                </label>
+				{{ form.last_name }}
+			</div>
+			<div>
+                <label for="{{ form.email.id_for_label }}" class="block mb-2 text-sm font-medium text-gray-900" >
+                    Correo
+                </label>
+				{{ form.email }}
+			</div>
+		</div>
+		<button type="submit" class="inline-flex items-center px-5 py-3 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-orange-500 rounded focus:ring-4 focus:ring-orange-200 hover:bg-orange-600 transition-colors ease-linear">
+			Modificar empleado
+		</button>
+	</form>
+</div>
+{% endblock content %}

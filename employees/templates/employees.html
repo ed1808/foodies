@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block title %}Empleados{% endblock title %}
+
+{% block content %}
+<div class="flex items-center justify-between border-b border-b-gray-200 px-4 pb-4 mb-4">
+    <h1 class="text-2xl font-bold">Empleados</h1>
+</div>
+<div class="px-4 h-[calc(100%-75px)]">
+    <div class="overflow-y-auto h-full">
+        <table class="w-full border-spacing-0 ">
+            <thead>
+                <tr>
+                    <th class="sticky top-0 z-10 h-[50px] bg-white border-b border-b-gray-200 font-semibold">
+                        Nombre
+                    </th>
+                    <th class="sticky top-0 z-10 h-[50px] bg-white border-b border-b-gray-200 font-semibold text-left">
+                        Nombre de usuario
+                    </th>
+                    <th class="sticky top-0 z-10 h-[50px] bg-white border-b border-b-gray-200 font-semibold text-left">
+                        Correo
+                    </th>
+                    <th class="sticky top-0 z-10 h-[50px] bg-white border-b border-b-gray-200 font-semibold text-left">
+                        Teléfono
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for employee in employees %}
+                <tr onclick="window.location.href='{% url "detail_employee" employee.id %}';" class="cursor-pointer hover:bg-gray-200 transition-colors ease-linear odd:bg-gray-50">
+                    <td class="pl-2 py-3 border-b border-b-gray-200">
+                        <p>{{ employee.first_name }} {{ employee.last_name }}</p>
+                    </td>
+                    <td class="py-3 border-b border-b-gray-200">
+                        <p>{{ employee.username }}</p>
+                    </td>
+                    <td class="py-3 border-b border-b-gray-200">
+                        <p>{{ employee.email }}</p>
+                    </td>
+                    <td class="py-3 border-b border-b-gray-200">
+                        <p>Pendiente</p>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="4" class="pt-6">
+                        <p class="text-center">No hay empleados disponibles</p>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock content %}

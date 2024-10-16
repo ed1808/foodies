@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}Empleados{% endblock title %}
+
+{% block content %}
+<div class="flex items-center justify-between border-b border-b-gray-200 px-4 pb-4 mb-4">
+    <a href="{% url 'employees' %}" class="flex gap-3 items-center hover:text-blue-500 transition-colors ease-linear">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" color="currentColor" fill="none">
+            <path d="M15 6C15 6 9.00001 10.4189 9 12C8.99999 13.5812 15 18 15 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+        <span>Volver a empleados</span>
+    </a>
+</div>
+<div class="grid h-[calc(100%-65px)] place-content-center">
+    <div class="w-full sm:w-96 p-4">
+        <h1 class="text-2xl font-bold mb-5">{{ employee.first_name }} {{ employee.last_name }}</h1>
+        <table class="w-full mb-7">
+            <tbody>
+                <tr>
+                    <td class="py-5 border-b border-gray-200">
+                        <span class="text-lg font-semibold">Correo:</span>
+                    </td>
+                    <td class="py-5 border-b border-gray-200">{{ employee.email }}</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="flex gap-5 items-center justify-center">
+            <a href="{% url 'update_employee' employee.id %}" class="flex gap-3 items-center bg-yellow-200 hover:bg-yellow-300 focus:ring-4 focus:outline-none focus:ring-yellow-400 font-medium rounded text-sm px-5 py-2.5 text-center transition-colors ease-linear" title="Editar" autofocus>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" color="currentColor" fill="none">
+                    <path d="M16.4249 4.60509L17.4149 3.6151C18.2351 2.79497 19.5648 2.79497 20.3849 3.6151C21.205 4.43524 21.205 5.76493 20.3849 6.58507L19.3949 7.57506M16.4249 4.60509L9.76558 11.2644C9.25807 11.772 8.89804 12.4078 8.72397 13.1041L8 16L10.8959 15.276C11.5922 15.102 12.228 14.7419 12.7356 14.2344L19.3949 7.57506M16.4249 4.60509L19.3949 7.57506" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" />
+                    <path d="M18.9999 13.5C18.9999 16.7875 18.9999 18.4312 18.092 19.5376C17.9258 19.7401 17.7401 19.9258 17.5375 20.092C16.4312 21 14.7874 21 11.4999 21H11C7.22876 21 5.34316 21 4.17159 19.8284C3.00003 18.6569 3 16.7712 3 13V12.5C3 9.21252 3 7.56879 3.90794 6.46244C4.07417 6.2599 4.2599 6.07417 4.46244 5.90794C5.56879 5 7.21252 5 10.5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <span>Editar</span>
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock content %}
