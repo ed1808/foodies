@@ -13,13 +13,15 @@ if not settings.TESTING:
         path("products/", include("products.urls")),
         path("customers/", include("customers.urls")),
         path("employees/", include("employees.urls")),
+        path("orders/", include("orders.urls")),
         path("__debug__/", include(debug_toolbar)),
     ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 else:
     urlpatterns = [
-        path("", include("customers.urls")),
+        path("", include("orders.urls")),
         path("admin/", admin.site.urls),
         path("products/", include("products.urls")),
         path("customers/", include("customers.urls")),
         path("employees/", include("employees.urls")),
+        path("orders/", include("orders.urls")),
     ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

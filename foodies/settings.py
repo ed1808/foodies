@@ -23,10 +23,13 @@ BASE_APPS = [
     "django.contrib.staticfiles",
 ]
 
-THIRD_PARTY_APPS = []
+THIRD_PARTY_APPS = [
+    "rest_framework",
+]
 
 if not TESTING:
     THIRD_PARTY_APPS = [
+        *THIRD_PARTY_APPS,
         "debug_toolbar",
     ]
 
@@ -36,6 +39,7 @@ USER_APPS = [
     "customers",
     "document_types",
     "employees",
+    "orders",
     "products",
 ]
 
@@ -144,3 +148,12 @@ if DEBUG:
     import mimetypes
 
     mimetypes.add_type("application/javascript", ".js", True)
+
+REST_FRAMEWORK = {
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.IsAuthenticated"
+    ],
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.SessionAuthentication",
+    ],
+}
