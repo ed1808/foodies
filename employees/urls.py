@@ -12,9 +12,7 @@ urlpatterns = [
     path("login/", EmployeeLoginView.as_view(), name="login"),
     path("logout/", LogoutView.as_view(), name="logout"),
     path("", EmployeeListView.as_view(), name="employees"),
-    path(
-        "detail-employee/<int:id>", EmployeeDetailView.as_view(), name="detail_employee"
-    ),
+    path("<int:id>", EmployeeDetailView.as_view(), name="detail_employee"),
     path(
         "update-employee/<int:id>", EmployeeUpdateView.as_view(), name="update_employee"
     ),

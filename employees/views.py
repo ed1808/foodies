@@ -4,6 +4,9 @@ from django.contrib.auth.models import User
 from django.contrib.auth.views import LoginView
 from django.db.models.base import Model as Model
 from django.db.models.query import QuerySet
+from django.http import HttpRequest
+from django.http.response import HttpResponse as HttpResponse
+from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views.generic.edit import UpdateView
 from django.views.generic.detail import DetailView
@@ -15,6 +18,11 @@ from .forms import LoginForm, EmployeeUpdateForm
 class EmployeeLoginView(LoginView):
     template_name = "login.html"
     form_class = LoginForm
+
+    def dispatch(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
+        if request.user.is_authenticated:
+            return redirect("orders")
+        return super().dispatch(request, *args, **kwargs)
 
 
 class EmployeeListView(LoginRequiredMixin, ListView):
@@ -47,8 +55,6 @@ class EmployeeDetailView(LoginRequiredMixin, DetailView):
     context_object_name = "employee"
 
     def get_object(self, queryset: QuerySet[Any] | None = ...) -> Model:
-        return (
-            User.objects.filter(id=self.kwargs["id"])
-            .values("id", "first_name", "last_name", "email")
-            .first()
-        )
+        employee = get_object_or_404(User, id=self.kwargs["id"])
+
+        return employee
