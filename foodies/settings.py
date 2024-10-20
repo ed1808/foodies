@@ -132,7 +132,7 @@ INTERNAL_IP = [
     "localhost:8000",
 ]
 
-LOGIN_REDIRECT_URL = "customers"
+LOGIN_REDIRECT_URL = "orders"
 LOGOUT_REDIRECT_URL = "login"
 LOGIN_URL = "login"
 
