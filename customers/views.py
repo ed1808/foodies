@@ -2,14 +2,18 @@ from typing import Any
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models.base import Model as Model
 from django.db.models.query import QuerySet
+from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
+from rest_framework.views import APIView
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
 
 from .forms import CustomerForm
 from .models import Customer
-from companies.models import Company
+from .serializers import CustomersSerializer
 
 
 class CustomerCreateView(LoginRequiredMixin, CreateView):
@@ -19,11 +23,10 @@ class CustomerCreateView(LoginRequiredMixin, CreateView):
     form_class = CustomerForm
 
     def form_valid(self, form):
-        # form.instance.company = self.request.user.company
-        company = Company.objects.get(id=1)
-        form.save(commit=False)
-        form.instance.companies.set(company)
-        form.save_m2m()
+        new_customer = form.save(commit=False)
+        new_customer.save()
+        new_customer.companies.add(self.request.user.employee.company)
+
         return super().form_valid(form)
 
 
@@ -33,7 +36,7 @@ class CustomersListView(LoginRequiredMixin, ListView):
     context_object_name = "customers"
 
     def get_queryset(self) -> QuerySet[Any]:
-        return Customer.objects.filter(companies__id=1)
+        return Customer.objects.filter(companies=self.request.user.employee.company)
 
 
 class CustomerDetailView(LoginRequiredMixin, DetailView):
@@ -42,11 +45,9 @@ class CustomerDetailView(LoginRequiredMixin, DetailView):
     context_object_name = "customer"
 
     def get_object(self, queryset: QuerySet[Any] | None = ...) -> Model:
-        return (
-            Customer.objects.filter(id=self.kwargs["id"])
-            .values("id", "name", "phone_number", "address", "neighborhood")
-            .first()
-        )
+        customer = get_object_or_404(Customer, id=self.kwargs["id"])
+
+        return customer
 
 
 class CustomerDeleteView(LoginRequiredMixin, DeleteView):
@@ -56,11 +57,9 @@ class CustomerDeleteView(LoginRequiredMixin, DeleteView):
     context_object_name = "customer"
 
     def get_object(self, queryset: QuerySet[Any] | None = ...) -> Model:
-        return (
-            Customer.objects.filter(id=self.kwargs["id"])
-            .values("id", "name", "phone_number", "address", "neighborhood")
-            .first()
-        )
+        customer = get_object_or_404(Customer, id=self.kwargs["id"])
+
+        return customer
 
 
 class CustomerUpdateView(LoginRequiredMixin, UpdateView):
@@ -70,7 +69,19 @@ class CustomerUpdateView(LoginRequiredMixin, UpdateView):
     context_object_name = "customer"
 
     def get_object(self, queryset: QuerySet[Any] | None = ...) -> Model:
-        return Customer.objects.get(id=self.kwargs["id"])
+        customer = get_object_or_404(Customer, id=self.kwargs["id"])
+
+        return customer
 
     def get_success_url(self) -> str:
         return reverse_lazy("detail_customer", kwargs={"id": self.object.id})
+
+
+class CustomersAPIView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, format=None):
+        customers = Customer.objects.filter(companies=request.user.employee.company)
+        serializer = CustomersSerializer(customers, many=True)
+
+        return Response(serializer.data)
