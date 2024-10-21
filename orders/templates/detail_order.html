@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% load order_filters %}
+
+{% block title %}Pedidos{% endblock title %}
+
+{% block content %}
+<div class="flex items-center justify-between border-b border-b-gray-200 px-4 pb-4 mb-4">
+    <a href="{% url 'orders' %}" class="flex gap-3 items-center hover:text-blue-500 transition-colors ease-linear">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" color="currentColor" fill="none">
+            <path d="M15 6C15 6 9.00001 10.4189 9 12C8.99999 13.5812 15 18 15 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+        <span>Volver a pedidos</span>
+    </a>
+    <h1 class="text-2xl font-bold">{{ order_detail.0.order }}</h1>
+</div>
+<div class="px-4 h-[calc(100%-75px)]">
+    <div class="border border-gray-200 rounded p-4 shadow-sm">
+        <div class="flex items-center gap-2 mb-2 pb-2 border-b border-b-gray-100">
+            <span class="inline-block w-1/2 font-semibold">Cliente</span><span class="inline-block w-1/2">{{ order_detail.0.order.customer.name }}</span>
+        </div>
+        <div class="flex items-center gap-2 mb-2 pb-2 border-b border-b-gray-100">
+            <span class="inline-block w-1/2 font-semibold">Dirección</span><span class="inline-block w-1/2">{{ order_detail.0.order.customer.address }}</span>
+        </div>
+        <div class="flex items-center gap-2 pb-2">
+            <span class="inline-block w-1/2 font-semibold">Teléfono</span><span class="inline-block w-1/2">{{ order_detail.0.order.customer.phone_number }}</span>
+        </div>
+        <div class="my-4 w-full h-[1px] border-b-2 border-gray-200"></div>
+        <h2 class="text-xl font-bold mb-4">Detalles del pedido</h2>
+        <table class="w-full border-spacing-0" id="form-container">
+            <thead>
+                <tr>
+                    <th class="sticky top-0 z-10 h-[50px] bg-white border-b border-b-gray-200 font-semibold text-left">
+                        Producto
+                    </th>
+                    <th class="sticky top-0 z-10 h-[50px] bg-white border-b border-b-gray-200 font-semibold text-left">
+                        Cantidad
+                    </th>
+                    <th class="sticky top-0 z-10 h-[50px] bg-white border-b border-b-gray-200 font-semibold text-left">
+                        Precio
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for detail in order_detail %}
+                <tr>
+                    <td class="py-3 {% if not forloop.last %} border-b border-b-gray-200 {% endif %}">
+                        {{ detail.product.name }}
+                    </td>
+                    <td class="py-3 {% if not forloop.last %} border-b border-b-gray-200 {% endif %}">
+                        {{ detail.quantity }}
+                    </td>
+                    <td class="py-3 {% if not forloop.last %} border-b border-b-gray-200 {% endif %}">
+                        ${{ detail.product.price|multiply:detail.quantity }}
+                    </td> 
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock content %}

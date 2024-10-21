@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block title %}Pedidos{% endblock title %}
+
+{% block content %}
+<div class="flex items-center justify-between border-b border-b-gray-200 px-4 pb-4 mb-4">
+    <h1 class="text-2xl font-bold">Pedidos</h1>
+    <a href="{% url 'create_order' %}" class="px-3 py-2 flex items-center gap-3 text-orange-500 border border-orange-500 hover:bg-orange-500 hover:text-white focus:ring-4 focus:outline-none focus:ring-orange-300 rounded transition-colors ease-linear">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" color="currentColor" fill="none">
+            <path d="M21.0524 11.5L21.3307 9.83981C21.5126 8.75428 21.6036 8.21152 21.3123 7.85576C21.0209 7.5 20.4854 7.5 19.4144 7.5H4.58564C3.51461 7.5 2.9791 7.5 2.68773 7.85576C2.39637 8.21152 2.48735 8.75428 2.66933 9.83981L3.87289 17.0194C4.27181 19.3991 4.47127 20.5889 5.28565 21.2945C6.10003 22 7.27396 22 9.62182 22H12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+            <path d="M14 18H22M18 22L18 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+            <path d="M17.5 7.5C17.5 4.46243 15.0376 2 12 2C8.96243 2 6.5 4.46243 6.5 7.5" stroke="currentColor" stroke-width="1.5" />
+        </svg>
+        <span>Nuevo pedido</span>
+    </a>
+</div>
+<div class="px-4 h-[calc(100%-75px)]">
+    <div class="overflow-y-auto h-full">
+        <table class="w-full border-spacing-0 ">
+            <thead>
+                <tr>
+                    <th class="sticky top-0 z-10 h-[50px] bg-white border-b border-b-gray-200 font-semibold text-left">
+                        Orden
+                    </th>
+                    <th class="sticky top-0 z-10 h-[50px] bg-white border-b border-b-gray-200 font-semibold text-left">
+                        Cliente
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in orders %}
+                <tr onclick="window.location.href='{% url "detail_order" order.id %}';" class="cursor-pointer hover:bg-gray-200 transition-colors ease-linear odd:bg-gray-50">
+                    <td class="pl-2 py-3 border-b border-b-gray-200">
+                        <p>{{ order }}</p>
+                    </td>
+                    <td class="py-3 border-b border-b-gray-200">
+                        <p>{{ order.customer.name }}</p>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="4" class="pt-6">
+                        <p class="text-center">No hay pedidos disponibles</p>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock content %}
